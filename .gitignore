@@ -1,0 +1,20 @@
+# .NET
+backend/**/bin/
+backend/**/obj/
+
+# Angular
+frontend/**/node_modules/
+frontend/**/dist/
+frontend/**/.angular/
+
+# IDE
+.vs/
+.vscode/*
+!.vscode/extensions.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+**/appsettings.Development.json
