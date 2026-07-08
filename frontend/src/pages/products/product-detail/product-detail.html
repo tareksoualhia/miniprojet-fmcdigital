@@ -1,0 +1,35 @@
+<div class="detail-page">
+  <a routerLink="/products" class="back-link">← Retour à la liste</a>
+
+  <p *ngIf="loading">Chargement...</p>
+  <div class="alert alert-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div class="detail-card" *ngIf="product && !loading">
+    <h2>{{ product.nom }}</h2>
+
+    <div class="detail-row">
+      <span class="label">Référence</span>
+      <span class="value">{{ product.reference }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Description</span>
+      <span class="value">{{ product.description || '—' }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Prix unitaire HT</span>
+      <span class="value">{{ product.prixUnitaireHT | number:'1.2-2' }} €</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Quantité en stock</span>
+      <span class="value">{{ product.quantiteEnStock }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Date de création</span>
+      <span class="value">{{ product.dateCreation | date:'dd/MM/yyyy HH:mm' }}</span>
+    </div>
+  </div>
+</div>

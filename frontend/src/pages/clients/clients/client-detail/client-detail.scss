@@ -1,0 +1,39 @@
+.detail-page {
+  padding: 24px;
+  max-width: 600px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #1976d2;
+  text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }
+
+.alert-error {
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+.detail-card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.detail-card h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.detail-row .label { font-weight: 600; color: #555; }
+.detail-row .value { text-align: right; }

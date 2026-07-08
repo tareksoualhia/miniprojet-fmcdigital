@@ -1,0 +1,85 @@
+<div class="clients-page">
+  <div class="header">
+    <h2>Clients</h2>
+    <button class="btn btn-primary" (click)="openCreateForm()">+ Nouveau client</button>
+  </div>
+
+  <div class="alert alert-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+
+  <div class="form-panel" *ngIf="showForm">
+    <h3>{{ isEditMode ? 'Modifier le client' : 'Nouveau client' }}</h3>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <label>Nom *</label>
+        <input formControlName="nom" type="text" />
+        <span class="field-error" *ngIf="form.get('nom')?.touched && form.get('nom')?.invalid">
+          Obligatoire.
+        </span>
+      </div>
+
+      <div class="form-row">
+        <label>Prénom / Raison sociale *</label>
+        <input formControlName="prenomOuRaisonSociale" type="text" />
+        <span class="field-error" *ngIf="form.get('prenomOuRaisonSociale')?.touched && form.get('prenomOuRaisonSociale')?.invalid">
+          Obligatoire.
+        </span>
+      </div>
+
+      <div class="form-row">
+        <label>Email *</label>
+        <input formControlName="email" type="email" />
+        <span class="field-error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+          Email valide requis.
+        </span>
+      </div>
+
+      <div class="form-row">
+        <label>Téléphone *</label>
+        <input formControlName="telephone" type="text" />
+        <span class="field-error" *ngIf="form.get('telephone')?.touched && form.get('telephone')?.invalid">
+          Obligatoire.
+        </span>
+      </div>
+
+      <div class="form-row">
+        <label>Adresse</label>
+        <textarea formControlName="adresse"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelForm()">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+  <p *ngIf="loading">Chargement...</p>
+
+  <table *ngIf="!loading && clients.length > 0">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom / Raison sociale</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{ client.nom }}</td>
+        <td>{{ client.prenomOuRaisonSociale }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.telephone }}</td>
+        <td>
+          <a [routerLink]="['/clients', client.id]" class="btn-link">Détail</a>
+          <button class="btn-link" (click)="openEditForm(client)">Modifier</button>
+          <button class="btn-link btn-danger" (click)="deleteClient(client.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && clients.length === 0">Aucun client trouvé.</p>
+</div>
