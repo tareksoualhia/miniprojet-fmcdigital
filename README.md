@@ -1,11 +1,19 @@
 # Mini Projet de Gestion Commerciale
 
 Application de gestion commerciale permettant de gérer les clients, les produits et les commandes, avec calcul automatique des totaux et gestion du stock.
+## Informations de connexion
 
+Une authentification simple par JWT a été mise en place (bonus). Au premier lancement, l'application redirige vers la page de connexion.
+
+**Identifiants de connexion :**
+- **Email** : `tareksoualhia2016@gmail.com`
+- **Mot de passe** : `123456`
+
+Les routes du front-end (`/clients`, `/products`, `/orders`) sont protégées par un guard Angular, et les endpoints du back-end (`/api/clients`, `/api/products`, `/api/orders`) sont protégés par `[Authorize]` et nécessitent un token JWT valide. Seul l'endpoint `/api/auth/login` reste public.
 ## Stack technique
 
 - **Back-end** : .NET 8 (ASP.NET Core Web API)
-- **Front-end** : Angular 19
+- **Front-end** : Angular 21
 - **Base de données** : SQL Server (Express)
 - **ORM** : Entity Framework Core
 
