@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using GestionCommerciale.Api.Services;
 using GestionCommerciale.Api.DTOs;
+using GestionCommerciale.Api.Models;
 
 namespace GestionCommerciale.Api.Controllers;
 
@@ -59,5 +60,20 @@ public class OrdersController : ControllerBase
         var (success, error) = await _service.ValidateAsync(id);
         if (!success) return BadRequest(new { message = error });
         return Ok(new { message = "Commande validée avec succès." });
+    }
+
+
+
+
+
+
+
+
+      [HttpPost("{id}/tva")]
+    public async Task<IActionResult> tva(int id ,Tvadto tva)
+    {
+        var success= await _service.Createtva(tva,id);
+       
+        return Ok(new { message = "tva avec succès." });
     }
 }

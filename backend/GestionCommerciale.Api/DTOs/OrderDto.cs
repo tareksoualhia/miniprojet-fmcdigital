@@ -42,3 +42,14 @@ public class UpdateOrderDto
     public int ClientId { get; set; }
     public List<CreateOrderLineDto> Lignes { get; set; } = new();
 }
+public class Tvadto
+{
+    public int orderId { get; set; }
+    
+    public string libelle { get; set; } = string.Empty;
+    public int montant { get; set; }
+    public int valeur { get; set; }  
+
+    public bool etat { get; set; }  
+    public int Totalcount { get; set; }  
+}

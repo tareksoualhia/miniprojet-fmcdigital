@@ -2,12 +2,15 @@ using Microsoft.EntityFrameworkCore;
 using GestionCommerciale.Api.Data;
 using GestionCommerciale.Api.Models;
 using GestionCommerciale.Api.DTOs;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.VisualBasic;
+using System.Data.SqlTypes;
 
 namespace GestionCommerciale.Api.Services;
 
 public class OrderService
 {
-    private const decimal TvaRate = 0.19m;
+    private const decimal TvaRate =Tvadto;
     private readonly AppDbContext _context;
 
     public OrderService(AppDbContext context)
@@ -170,10 +173,10 @@ public class OrderService
         return (true, null);
     }
 
-    private static void RecalculateTotals(Order order)
+    private static void RecalculateTotals(Order order , Tvadto tva)
     {
         order.TotalHT = order.OrderLines.Sum(l => l.Quantite * l.PrixUnitaire);
-        order.TotalTTC = Math.Round(order.TotalHT * (1 + TvaRate), 2);
+        order.TotalTTC = Math.Round(order.TotalHT * (1 + tva), 2);
     }
 
     private static string GenerateOrderNumber()
@@ -201,4 +204,41 @@ public class OrderService
             TotalLigne = l.Quantite * l.PrixUnitaire
         }).ToList()
     };
+
+
+
+
+
+    public async Task<(bool Success, string? Error,Tvadto? tva )> Createtva(Tvadto tva , int id)
+    {
+
+         var order = await _context.Orders
+            .Include(o => o.OrderLines).ThenInclude(ol => ol.Product)
+            .FirstOrDefaultAsync(o => o.Id == id);
+        
+
+        var tvadto = new Tvadto
+        {
+            orderId = tva.orderId,
+            libelle = tva.libelle,
+            montant = tva.montant,
+            valeur = tva.valeur,
+            etat = tva.etat
+        };
+
+
+
+       RecalculateTotals(order);
+
+        _context.Orders.Add(order);
+        await _context.SaveChangesAsync();
+
+        var created = await GetByIdAsync(order.Id);
+        return(true,null,tva) ;
+    }
 }
+  
+
+
+
+
